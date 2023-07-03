@@ -24,4 +24,19 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
+{
+  /* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+<Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="inherit">
+  <Tab label="HelloWorld" {...a11yProps(0)} />
+  <Tab label="TraitBook" {...a11yProps(1)} />
+</Tabs>
+</Box>
+<TabPanel value={value} index={0}>
+<HelloWorld />
+</TabPanel>
+<TabPanel value={value} index={1}>
+<TraitBook />
+</TabPanel> */
+}
+
 export default TabPanel;

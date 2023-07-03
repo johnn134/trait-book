@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { Box, Tabs, Tab, Typography } from '@mui/material';
+import React, { useState } from "react";
+import { Box, Tabs, Tab, Typography } from "@mui/material";
 
-import HelloWorld from '@/components/modules/HelloWorld';
-import TraitBook from '@/components/modules/TraitBook';
+import AppBar from "@/components/core/navigation/AppBar";
+import HelloWorld from "@/components/modules/HelloWorld";
+import TraitBook from "@/components/modules/TraitBook";
 
-import TabPanel from '@/components/core/Tabs/TabPanel';
+import TabPanel from "@/components/core/tabs/TabPanel";
 
-import { a11yProps } from '@/utilities/GenericUtilities';
+import { a11yProps } from "@/utilities/GenericUtilities";
 
-import './App.css';
+import "./App.css";
 
 const App = (): React.ReactElement => {
   //  #region State
@@ -36,19 +37,9 @@ const App = (): React.ReactElement => {
   //  #region Render
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="inherit">
-          <Tab label="HelloWorld" {...a11yProps(0)} />
-          <Tab label="TraitBook" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <HelloWorld />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <TraitBook />
-      </TabPanel>
+    <Box id="app-container">
+      <AppBar />
+      <Box id="app-content"></Box>
     </Box>
   );
 

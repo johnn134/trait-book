@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import reactLogo from '@/assets/images/icons/react.svg';
+import React, { useState } from "react";
+import reactLogo from "@/assets/images/icons/react.svg";
 
 const HelloWorld = (): React.ReactElement => {
   //  #region State
