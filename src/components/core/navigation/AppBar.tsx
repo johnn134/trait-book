@@ -14,19 +14,28 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import { useNavigate } from "react-router-dom";
 
 import AppText from "@/config/AppText";
+import AppRoutes from "@/config/AppRoutes";
 
 import styles from "./styles/AppBar.style";
 
-const pages = ["Home", "Test"];
+const pages = [AppRoutes.HOME, AppRoutes.TEST];
 const settings = ["Profile", "Account", "Logout"];
+
+const LinkTitles: { [key: string]: string } = {
+  [AppRoutes.HOME]: "HOME",
+  [AppRoutes.TEST]: "TEST",
+};
 
 const ResponsiveAppBar = (): React.ReactElement => {
   //  #region STATE
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const navigate = useNavigate();
 
   //  #endregion
 
@@ -43,12 +52,14 @@ const ResponsiveAppBar = (): React.ReactElement => {
     setAnchorElNav(null);
   };
 
-  const onNavClick = (page?: string) => {
+  const onNavClick = (page?: AppRoutes) => {
     onNavClose();
     switch (page) {
-      case "Home":
+      case AppRoutes.HOME:
+        navigate(AppRoutes.HOME);
         break;
-      case "Test":
+      case AppRoutes.TEST:
+        navigate(AppRoutes.TEST);
         break;
       default:
     }
@@ -101,7 +112,7 @@ const ResponsiveAppBar = (): React.ReactElement => {
           >
             {pages.map((page) => (
               <MenuItem key={page} onClick={() => onNavClick(page)}>
-                <Typography textAlign="center">{page}</Typography>
+                <Typography textAlign="center">{LinkTitles[page]}</Typography>
               </MenuItem>
             ))}
           </Menu>
@@ -128,10 +139,13 @@ const ResponsiveAppBar = (): React.ReactElement => {
           variant="h6"
           noWrap
           component="a"
-          href="/"
+          onClick={() => onNavClick(AppRoutes.HOME)}
           sx={{
             mr: 2,
             display: { xs: "none", md: "flex" },
+            ":hover": {
+              cursor: "pointer",
+            },
           }}
           style={styles.typography}
         >
@@ -140,7 +154,7 @@ const ResponsiveAppBar = (): React.ReactElement => {
         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
           {pages.map((page) => (
             <Button key={page} onClick={() => onNavClick(page)} sx={{ my: 2, color: "white", display: "block" }}>
-              {page}
+              {LinkTitles[page]}
             </Button>
           ))}
         </Box>

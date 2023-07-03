@@ -38,5 +38,18 @@ function TabPanel(props: TabPanelProps) {
 <TraitBook />
 </TabPanel> */
 }
+// //  #region State
+
+// const [value, setValue] = React.useState(0);
+
+// //  #endregion
+
+// //  #region Handlers
+
+// const handleChange = (_: React.SyntheticEvent, newValue: number) => {
+//   setValue(newValue);
+// };
+
+//  #endregion
 
 export default TabPanel;
