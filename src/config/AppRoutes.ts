@@ -1,5 +1,5 @@
 enum AppRoutes {
-  ROOT = "/",
+  ROOT = "/trait-book/",
   HOME = "/trait-book/home",
   TEST = "/trait-book/test",
 }
