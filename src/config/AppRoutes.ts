@@ -1,7 +1,7 @@
 enum AppRoutes {
   ROOT = "/",
-  HOME = "/home",
-  TEST = "/test",
+  HOME = "/trait-book/home",
+  TEST = "/trait-book/test",
 }
 
 export default AppRoutes;
