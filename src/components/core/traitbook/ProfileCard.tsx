@@ -25,7 +25,6 @@ import {
   calculateBalance,
   calculateConflict,
   calculateHarmony,
-  determinePersonalityType,
   determineProfilesRelation,
 } from "@/utilities/TraitUtilities";
 

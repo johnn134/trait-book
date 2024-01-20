@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Tabs, Tab, Typography } from "@mui/material";
+import React from "react";
+import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import AppBar from "@/components/core/navigation/AppBar";

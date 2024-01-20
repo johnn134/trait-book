@@ -4,7 +4,7 @@
 
 import TraitAssets from "@/config/TraitAssets";
 
-export const determinePersonalityType = (traits: TraitType[]): string => {
+export const determinePersonalityType = (): string => {
   return "Neutral Neutral";
 };
 
