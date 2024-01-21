@@ -8,7 +8,6 @@ import {
   Typography,
   Menu,
   Avatar,
-  Button,
   Tooltip,
   MenuItem,
 } from "@mui/material";
@@ -21,18 +20,9 @@ import AppRoutes from "@/config/AppRoutes";
 
 import styles from "./styles/AppBar.style";
 
-const pages = [AppRoutes.HOME, AppRoutes.TEST];
-const settings = ["Profile", "Account", "Logout"];
-
-const LinkTitles: { [key: string]: string } = {
-  [AppRoutes.HOME]: "HOME",
-  [AppRoutes.TEST]: "TEST",
-};
-
 const ResponsiveAppBar = (): React.ReactElement => {
   //  #region STATE
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const navigate = useNavigate();
@@ -41,19 +31,11 @@ const ResponsiveAppBar = (): React.ReactElement => {
 
   //  #region HANDLERS
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const onNavClose = () => {
-    setAnchorElNav(null);
-  };
-
   const onNavClick = (page?: AppRoutes) => {
-    onNavClose();
     switch (page) {
       case AppRoutes.HOME:
         navigate(AppRoutes.HOME);
@@ -79,44 +61,9 @@ const ResponsiveAppBar = (): React.ReactElement => {
 
   return (
     <AppBar position="static" id="app-bar">
-      <Toolbar disableGutters={false} id="app-tool-bar">
+      <Toolbar disableGutters={false} id="app-tool-bar" style={{ justifyContent: "space-between" }}>
         {/* XS */}
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenNavMenu}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            open={Boolean(anchorElNav)}
-            onClose={onNavClose}
-            sx={{
-              display: { xs: "block", md: "none" },
-            }}
-          >
-            {pages.map((page) => (
-              <MenuItem key={page} onClick={() => onNavClick(page)}>
-                <Typography textAlign="center">{LinkTitles[page]}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
+        <Box id="xs-app-bar" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }} />
         <AutoStoriesIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
         <Typography
           variant="h5"
@@ -134,36 +81,33 @@ const ResponsiveAppBar = (): React.ReactElement => {
         </Typography>
 
         {/* MD */}
-        <AutoStoriesIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-        <Typography
-          variant="h6"
-          noWrap
-          component="a"
-          onClick={() => onNavClick(AppRoutes.HOME)}
-          sx={{
-            mr: 2,
-            display: { xs: "none", md: "flex" },
-            ":hover": {
-              cursor: "pointer",
-            },
-          }}
-          style={styles.typography}
-        >
-          {appTitle}
-        </Typography>
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          {pages.map((page) => (
-            <Button key={page} onClick={() => onNavClick(page)} sx={{ my: 2, color: "white", display: "block" }}>
-              {LinkTitles[page]}
-            </Button>
-          ))}
-        </Box>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <AutoStoriesIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            onClick={() => onNavClick(AppRoutes.ROOT)}
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              ":hover": {
+                cursor: "pointer",
+              },
+            }}
+            style={styles.typography}
+          >
+            {appTitle}
+          </Typography>
+        </div>
 
         {/* AVATAR + MENU */}
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="John Nelson" src="/static/images/avatar/2.jpg" />
+              <Avatar>
+                <MenuIcon />
+              </Avatar>
             </IconButton>
           </Tooltip>
           <Menu
@@ -182,11 +126,9 @@ const ResponsiveAppBar = (): React.ReactElement => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
-              </MenuItem>
-            ))}
+            <MenuItem onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">Reset</Typography>
+            </MenuItem>
           </Menu>
         </Box>
       </Toolbar>

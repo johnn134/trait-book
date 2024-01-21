@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import App, { appLoader } from "@/App";
 import HelloWorld from "@/components/modules/HelloWorld";
 import TraitBook from "@/components/modules/TraitBook";
-import RoutingError from "./components/modules/RoutingError";
+import RoutingError from "@/components/modules/RoutingError";
 
 import Store from "@/store/storage";
 
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     errorElement: <RoutingError />,
     children: [
       {
-        path: AppRoutes.HOME,
+        path: AppRoutes.ROOT,
         element: <TraitBook state={state} saveState={Store.saveStore} />,
       },
       {
