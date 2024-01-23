@@ -36,7 +36,7 @@ const ProfileWorkspace = ({
     <Paper
       id="profile-paper"
       elevation={6}
-      sx={{ display: "flex", flex: 1, height: { xs: "calc(100% - 96px)", md: "100%" } }}
+      sx={{ display: "flex", flex: 1, height: { xs: "calc(100% - 96px - env(safe-area-inset-bottom))", md: "100%" } }}
     >
       {profile !== undefined && (
         <ProfileCard
