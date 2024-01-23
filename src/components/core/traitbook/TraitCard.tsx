@@ -1,10 +1,6 @@
 import React from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 
-import { TRAIT_ICON_PIXEL_SIZE } from "@/config/TraitAssets";
-
-const TraitPixelSize = `${TRAIT_ICON_PIXEL_SIZE * 2}px`;
-
 type TraitCardProps = {
   trait: TraitAssetData;
   selected?: boolean;
