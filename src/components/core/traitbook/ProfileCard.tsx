@@ -12,6 +12,7 @@ import {
   InputLabel,
   MenuItem,
   Typography,
+  Box,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import EditIcon from "@mui/icons-material/Edit";
@@ -37,6 +38,9 @@ const FOIL_BASE_PROFILE: Profile = {
   avatarImage: undefined,
   traits: [],
 };
+
+const ICON_SMALL_SIZE = "25px";
+const ICON_MD_SIZE = "40px";
 
 type ViewType = "default" | "compare" | "foil";
 
@@ -159,15 +163,20 @@ const ProfileCard = ({ profile, profiles, updateProfile, deleteProfile }: Profil
         title={
           isEditing ? <TextField value={editProfile.name} onChange={onTitleChange} variant="standard" /> : profile.name
         }
-        subheader={
-          <div style={{ display: "flex" }}>
-            {profile.traits
-              .sort((a, b) => a.localeCompare(b))
-              .map((trait) => (
-                <img src={TraitAssets[trait].icon} style={{ width: "30px", height: "30px" }} key={trait} />
-              ))}
-          </div>
-        }
+        subheader={profile.traits
+          .sort((a, b) => a.localeCompare(b))
+          .map((trait) => (
+            <Box
+              component="img"
+              src={TraitAssets[trait].icon}
+              key={trait}
+              sx={{
+                width: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                height: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+              }}
+            />
+          ))}
+        sx={{ justifyContent: "center", "& .MuiCardHeader-action": { margin: "auto" } }}
       />
       <CardContent
         style={{
@@ -203,7 +212,9 @@ const ProfileCard = ({ profile, profiles, updateProfile, deleteProfile }: Profil
                   onClick={onTraitClick(trait.type)}
                 />
                 <ArrowBackIcon color={profile.traits.includes(trait.type) ? undefined : "disabled"} />
-                <img src={Taijitu} style={{ height: "100px", rotate: "180deg" }} />
+                <Box sx={{ height: { xs: "50px", md: "100px" }, width: { xs: "50px", md: "100px" } }}>
+                  <img src={Taijitu} style={{ rotate: "180deg", width: "100%" }} />
+                </Box>
                 <ArrowForwardIcon color={profile.traits.includes(trait.foil) ? undefined : "disabled"} />
                 <TraitCard
                   trait={TraitAssets[trait.foil]}
@@ -223,15 +234,19 @@ const ProfileCard = ({ profile, profiles, updateProfile, deleteProfile }: Profil
             </Avatar>
           }
           title="Foil"
-          subheader={
-            <div style={{ display: "flex" }}>
-              {profile.traits
-                .map((trait) => TraitAssets[trait].foil)
-                .map((trait) => (
-                  <img src={TraitAssets[trait].icon} style={{ width: "30px", height: "30px" }} key={trait} />
-                ))}
-            </div>
-          }
+          subheader={profile.traits
+            .map((trait) => TraitAssets[trait].foil)
+            .map((trait) => (
+              <Box
+                component="img"
+                src={TraitAssets[trait].icon}
+                key={trait}
+                sx={{
+                  width: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                  height: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                }}
+              />
+            ))}
         />
       )}
       {view === "compare" && (
@@ -267,11 +282,19 @@ const ProfileCard = ({ profile, profiles, updateProfile, deleteProfile }: Profil
               </FormControl>
             }
             subheader={
-              <div style={{ display: "flex" }}>
+              <div>
                 {targetProfile?.traits
                   .sort((a, b) => a.localeCompare(b))
                   .map((trait) => (
-                    <img src={TraitAssets[trait].icon} style={{ width: "30px", height: "30px" }} key={trait} />
+                    <Box
+                      component="img"
+                      src={TraitAssets[trait].icon}
+                      key={trait}
+                      sx={{
+                        width: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                        height: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                      }}
+                    />
                   ))}
               </div>
             }
@@ -280,36 +303,70 @@ const ProfileCard = ({ profile, profiles, updateProfile, deleteProfile }: Profil
             style={{
               width: "calc(100% - 32px)",
               paddingRight: "-16px",
+              paddingTop: 0,
             }}
           >
             <div style={{ width: "calc(100% - 16px)" }}>
               <Typography>
                 Relation: {targetProfile ? determineProfilesRelation(profile, targetProfile) : "None"}
               </Typography>
-              <Typography>Harmony:</Typography>
-              {targetProfile && (
-                <div style={{ display: "flex" }}>
-                  {calculateHarmony(profile, targetProfile).map((trait) => (
-                    <img src={TraitAssets[trait].icon} style={{ width: "40px", height: "40px" }} key={trait} />
-                  ))}
-                </div>
-              )}
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Typography>Harmony:</Typography>
+                {targetProfile && (
+                  <div style={{ display: "flex" }}>
+                    {calculateHarmony(profile, targetProfile).map((trait) => (
+                      <Box
+                        component="img"
+                        src={TraitAssets[trait].icon}
+                        key={trait}
+                        sx={{
+                          width: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                          height: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
               <Typography>Conflict:</Typography>
               {targetProfile && (
                 <>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <Avatar sx={{ height: "35px", width: "35px" }}>{profile.name[0]}</Avatar>
-                    {calculateConflict(profile, targetProfile).map((trait) => (
-                      <img src={TraitAssets[trait].icon} style={{ width: "40px", height: "40px" }} key={trait} />
-                    ))}
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <Avatar sx={{ height: "35px", width: "35px" }}>{targetProfile.name[0]}</Avatar>
-                    {calculateConflict(profile, targetProfile)
-                      .map((trait) => TraitAssets[trait].foil)
-                      .map((trait) => (
-                        <img src={TraitAssets[trait].icon} style={{ width: "40px", height: "40px" }} key={trait} />
+                  <div
+                    id="conflict-selected-profile"
+                    style={{ display: "flex", alignItems: "center", marginBottom: "4px" }}
+                  >
+                    <Avatar sx={{ height: "35px", width: "35px", marginRight: "4px" }}>{profile.name[0]}</Avatar>
+                    <div id="trait-icons-container" style={{ display: "flex" }}>
+                      {calculateConflict(profile, targetProfile).map((trait) => (
+                        <Box
+                          component="img"
+                          src={TraitAssets[trait].icon}
+                          key={trait}
+                          sx={{
+                            width: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                            height: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                          }}
+                        />
                       ))}
+                    </div>
+                  </div>
+                  <div id="conflict-compared-profile" style={{ display: "flex", alignItems: "center" }}>
+                    <Avatar sx={{ height: "35px", width: "35px", marginRight: "4px" }}>{targetProfile.name[0]}</Avatar>
+                    <div id="trait-icons-container" style={{ display: "flex" }}>
+                      {calculateConflict(profile, targetProfile)
+                        .map((trait) => TraitAssets[trait].foil)
+                        .map((trait) => (
+                          <Box
+                            component="img"
+                            src={TraitAssets[trait].icon}
+                            key={trait}
+                            sx={{
+                              width: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                              height: { xs: ICON_SMALL_SIZE, md: ICON_MD_SIZE },
+                            }}
+                          />
+                        ))}
+                    </div>
                   </div>
                 </>
               )}

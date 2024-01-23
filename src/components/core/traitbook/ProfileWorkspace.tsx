@@ -33,7 +33,11 @@ const ProfileWorkspace = ({
   //  #region Render
 
   return (
-    <Paper id="profile-paper" elevation={6} style={{ display: "flex", flex: 1 }}>
+    <Paper
+      id="profile-paper"
+      elevation={6}
+      sx={{ display: "flex", flex: 1, height: { xs: "calc(100% - 96px)", md: "100%" } }}
+    >
       {profile !== undefined && (
         <ProfileCard
           profile={profile}

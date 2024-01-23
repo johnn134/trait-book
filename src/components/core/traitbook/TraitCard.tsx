@@ -38,7 +38,7 @@ const TraitCard = ({ trait, selected, onClick }: TraitCardProps): React.ReactEle
       sx={{
         width: "fit-content",
         height: "fit-content",
-        marginBottom: "8px",
+        margin: "4px 8px",
         ":hover": {
           backgroundColor: "#777777",
           cursor: "pointer",
@@ -50,15 +50,10 @@ const TraitCard = ({ trait, selected, onClick }: TraitCardProps): React.ReactEle
           : {}),
       }}
     >
-      <CardMedia
-        component="img"
-        image={trait.icon}
-        alt={trait.type}
-        sx={{ width: TraitPixelSize, height: TraitPixelSize }}
-      />
+      <CardMedia component="img" image={trait.icon} alt={trait.type} sx={{ objectFit: "fill" }} />
       <CardContent style={{ display: "flex", justifyContent: "center", padding: "0 8px 8px" }}>
         <Typography color="white" fontSize="14px">
-          {trait.type}
+          {`${trait.type[0].toUpperCase()}${trait.type.slice(1)}`}
         </Typography>
       </CardContent>
     </Card>

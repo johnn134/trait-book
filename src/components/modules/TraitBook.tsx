@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Box } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 import ProfileList from "@/components/core/traitbook/ProfileList";
 import ProfileWorkspace from "../core/traitbook/ProfileWorkspace";
@@ -73,6 +74,10 @@ const TraitBook = ({ state, saveState }: TraitBookProps): React.ReactElement => 
     }
   }, [deleteProfile, selectedProfileIndex]);
 
+  const onProfileSelectChange = useCallback((event: SelectChangeEvent) => {
+    setSelectedProfileIndex(parseInt(event.target.value, 10));
+  }, []);
+
   //  #endregion
 
   //  #region Effects
@@ -94,12 +99,13 @@ const TraitBook = ({ state, saveState }: TraitBookProps): React.ReactElement => 
   //  #region Render
 
   return (
-    <Box id="trait-book-container" style={{ display: "flex", width: "100%", height: "100%" }}>
+    <Box id="trait-book-container" sx={{ display: { sx: "block", md: "flex" }, width: "100%", height: "100%" }}>
       <ProfileList
         profiles={profiles}
-        onProfileListItemClick={setSelectedProfileIndex}
         selectedProfileIndex={selectedProfileIndex}
         createProfile={createProfile}
+        onProfileListItemClick={setSelectedProfileIndex}
+        onProfileSelectChange={onProfileSelectChange}
       />
       <ProfileWorkspace
         profile={selectedProfileIndex !== undefined ? profiles[selectedProfileIndex] : undefined}
