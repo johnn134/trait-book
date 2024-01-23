@@ -28,7 +28,13 @@ const App = (): React.ReactElement => {
   return (
     <Box id="app-container" style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
       <AppBar />
-      <Box id="app-content" style={{ width: "calc(100vw - 32px)", height: "calc(100vh - 64px - 32px)" }}>
+      <Box
+        id="app-content"
+        sx={{
+          width: "calc(100vw - 32px)",
+          height: { xs: "calc(100svh - 64px - 32px)", md: "calc(100vh - 64px - 32px)" },
+        }}
+      >
         <Outlet />
       </Box>
     </Box>
